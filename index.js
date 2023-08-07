@@ -17,23 +17,29 @@ buttons.addEventListener(`click`, (e) => {
 			} else {
 				child.classList.remove(`active`);
 			}
-			tipValue = parseFloat(e.target.value) / 100;
+			console.log(e.target.value);
+			if (e.target.value === ``) {
+				tipValue = NaN;
+			} else {
+				tipValue = parseFloat(e.target.value) / 100;
+			}
 		});
+		// custom.value = 0;
 		calculateTip();
 	}
 });
 
 bill.addEventListener(`input`, countMoney);
 numPeople.addEventListener(`input`, countPeople);
-custom.addEventListener(`input`, countPercent);
 resetBtn.addEventListener(`click`, reset);
 // functions////////////////////////
-
+// custom.value = 0;
+custom.addEventListener(`input`, countPercent);
 bill.value = ``;
 numPeople.value = ``;
 amount.innerHTML = `$${(0.0).toFixed(2)}`;
 total.innerHTML = `$${(0.0).toFixed(2)}`;
-let tipValue = 0;
+let tipValue;
 let numberOfPeople = ``;
 let money = ``;
 
@@ -55,17 +61,26 @@ function countPeople() {
 	}
 }
 function countPercent() {
+	// custom.value = 0;
 	tipValue = parseFloat(custom.value) / 100;
+
 	tips.forEach((e) => e.classList.remove(`active`));
+	console.log(tipValue);
+
 	calculateTip();
+	// if (custom.value == ``) {
+	// 	custom.value = 0;
+	// }
 }
 
 function calculateTip() {
 	if (numberOfPeople >= 1) {
 		if (isNaN(money) || isNaN(tipValue) || isNaN(numberOfPeople)) {
-			amount.innerHTML = `$${(0.0).toFixed(2)}`;
-			total.innerHTML = `$${(0.0).toFixed(2)}`;
-		} else if (money !== 0 && tipValue !== 0 && numberOfPeople !== 0){
+			return;
+		} else if (money !== 0 && numberOfPeople !== 0) {
+			// if (tipValue === 0) {
+			// 	return;
+			// } else {
 			let tipamount = (money * tipValue) / numberOfPeople;
 			console.log(money, numberOfPeople, tipValue);
 			let totalamount = (money * (1 + tipValue)) / numberOfPeople;
@@ -74,6 +89,7 @@ function calculateTip() {
 		}
 	}
 }
+// }
 
 function reset() {
 	bill.value = ``;
