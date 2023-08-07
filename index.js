@@ -65,7 +65,7 @@ function calculateTip() {
 		if (isNaN(money) || isNaN(tipValue) || isNaN(numberOfPeople)) {
 			amount.innerHTML = `$${(0.0).toFixed(2)}`;
 			total.innerHTML = `$${(0.0).toFixed(2)}`;
-		} else {
+		} else if (money !== 0 && tipValue !== 0 && numberOfPeople !== 0){
 			let tipamount = (money * tipValue) / numberOfPeople;
 			console.log(money, numberOfPeople, tipValue);
 			let totalamount = (money * (1 + tipValue)) / numberOfPeople;
