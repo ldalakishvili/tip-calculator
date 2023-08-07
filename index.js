@@ -9,6 +9,7 @@ const border = document.querySelector(`.border`);
 const resetBtn = document.querySelector(`.reset`);
 const buttons = document.querySelector(`.buttons`);
 // event listeners///////////////////////////////////////
+
 buttons.addEventListener(`click`, (e) => {
 	if (e.target.classList.contains(`percent`)) {
 		tips.forEach((child) => {
@@ -19,7 +20,7 @@ buttons.addEventListener(`click`, (e) => {
 			}
 			console.log(e.target.value);
 			if (e.target.value === ``) {
-				tipValue = NaN;
+				tipValue = 0;
 			} else {
 				tipValue = parseFloat(e.target.value) / 100;
 			}
@@ -51,13 +52,13 @@ function countMoney() {
 function countPeople() {
 	numberOfPeople = parseFloat(numPeople.value);
 
+	calculateTip();
 	if (numberOfPeople < 1) {
 		error.style.display = `flex`;
 		border.style.borderColor = `#e17457`;
 	} else {
 		error.style.display = `none`;
 		border.style.borderColor = `transparent`;
-		calculateTip();
 	}
 }
 function countPercent() {
@@ -76,7 +77,8 @@ function countPercent() {
 function calculateTip() {
 	if (numberOfPeople >= 1) {
 		if (isNaN(money) || isNaN(tipValue) || isNaN(numberOfPeople)) {
-			return;
+			amount.innerHTML = `$${(0.0).toFixed(2)}`;
+			total.innerHTML = `$${(0.0).toFixed(2)}`;
 		} else if (money !== 0 && numberOfPeople !== 0) {
 			// if (tipValue === 0) {
 			// 	return;
@@ -87,14 +89,22 @@ function calculateTip() {
 			amount.innerHTML = `$${tipamount.toFixed(2)}`;
 			total.innerHTML = `$${totalamount.toFixed(2)}`;
 		}
+	} else if (isNaN(numberOfPeople)) {
+		amount.innerHTML = `$${(0.0).toFixed(2)}`;
+		total.innerHTML = `$${(0.0).toFixed(2)}`;
 	}
 }
 // }
-
 function reset() {
 	bill.value = ``;
 	numPeople.value = ``;
+	numberOfPeople = ``;
+	money = ``;
+	tipValue = ``;
 	custom.value = ``;
 	amount.innerHTML = `$${(0.0).toFixed(2)}`;
 	total.innerHTML = `$${(0.0).toFixed(2)}`;
+	tips.forEach((child) => {
+		child.classList.remove(`active`);
+	});
 }
