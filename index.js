@@ -76,7 +76,9 @@ function countPercent() {
 
 function calculateTip() {
 	if (numberOfPeople >= 1) {
-		if (isNaN(money) || isNaN(tipValue) || isNaN(numberOfPeople)) {
+		if (tipValue === ``) {
+			return;
+		} else if (isNaN(money) || isNaN(tipValue) || isNaN(numberOfPeople)) {
 			amount.innerHTML = `$${(0.0).toFixed(2)}`;
 			total.innerHTML = `$${(0.0).toFixed(2)}`;
 		} else if (money !== 0 && numberOfPeople !== 0) {
