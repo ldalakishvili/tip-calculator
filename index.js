@@ -29,7 +29,15 @@ buttons.addEventListener(`click`, (e) => {
 		calculateTip();
 	}
 });
-
+function preventMinus(bttn) {
+  bttn.addEventListener('keydown', (event) => {
+    if (event.keyCode === 189) {
+      event.preventDefault()
+    }
+  })
+}
+preventMinus(bill)
+preventMinus(numPeople)
 bill.addEventListener(`input`, countMoney);
 numPeople.addEventListener(`input`, countPeople);
 resetBtn.addEventListener(`click`, reset);
